@@ -1,10 +1,10 @@
 #include "Dog.hpp"
 
 Dog::Dog()
+  : Animal()
 {
     type = "Dog";
     std::cout << "Dog default constructor called" << std::endl;
-    //   this->Animal::type = "Dog"; to be inspected later
     return;
 }
 
