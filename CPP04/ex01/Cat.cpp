@@ -14,7 +14,7 @@ Cat::Cat(const Cat& other)
 {
     std::cout << "Cat copy constructor called" << std::endl;
     this->brain = new Brain(*other.brain);
-    this->type = other.type; // May remove it later
+    this->type = other.type;
 }
 
 Cat&
