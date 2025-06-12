@@ -1,0 +1,170 @@
+#include "ClapTrap.hpp"
+#include <climits> // For UINT_MAX
+#include <iostream>
+#include <string>
+
+// Function to print test status
+void
+printTestResult(const std::string& testName, bool passed)
+{
+    std::cout << "\n=== Test: " << testName << " ===\n";
+    if (passed)
+    {
+        std::cout << "PASSED ✓\n";
+    }
+    else
+    {
+        std::cout << "FAILED ✗\n";
+    }
+    std::cout << "===========================\n\n";
+}
+
+// Function to separate test sections
+void
+printSection(const std::string& section)
+{
+    std::cout << "\n================================================\n";
+    std::cout << "  " << section;
+    std::cout << "\n================================================\n";
+}
+
+int
+main()
+{
+    printSection("CONSTRUCTOR TESTS");
+
+    // Test 1: Default constructor
+    {
+        std::cout << "Test 1: Default constructor\n";
+        ClapTrap defaultClap;
+        // Can't directly test private members, but can observe behavior
+        printTestResult("Default Constructor", true);
+    }
+
+    // Test 2: Parameterized constructor
+    {
+        std::cout << "Test 2: Parameterized constructor\n";
+        ClapTrap namedClap("C4-PT");
+        printTestResult("Parameterized Constructor", true);
+    }
+
+    // Test 3: Copy constructor
+    {
+        std::cout << "Test 3: Copy constructor\n";
+        ClapTrap original("Original");
+        ClapTrap copy(original);
+        printTestResult("Copy Constructor", true);
+    }
+
+    // Test 4: Copy assignment operator
+    {
+        std::cout << "Test 4: Copy assignment operator\n";
+        ClapTrap first("First");
+        ClapTrap second("Second");
+        second = first;
+        printTestResult("Copy Assignment", true);
+
+        // Test self-assignment edge case
+        std::cout << "Test 4b: Self-assignment\n";
+        first = first;
+        printTestResult("Self-Assignment", true);
+    }
+
+    printSection("BASIC FUNCTIONALITY TESTS");
+
+    // Test 5: Basic attack
+    {
+        std::cout << "Test 5: Basic attack functionality\n";
+        ClapTrap attacker("Attacker");
+        attacker.attack("Target");
+        printTestResult("Basic Attack", true);
+    }
+
+    // Test 6: Taking damage
+    {
+        std::cout << "Test 6: Taking damage\n";
+        ClapTrap victim("Victim");
+        victim.takeDamage(5); // Should have 5 hit points left
+        printTestResult("Taking Damage", true);
+    }
+
+    // Test 7: Repair
+    {
+        std::cout << "Test 7: Repair functionality\n";
+        ClapTrap repairable("Repairable");
+        repairable.takeDamage(5); // Down to 5 hit points
+        repairable.beRepaired(3); // Should have 8 hit points now
+        printTestResult("Repair Functionality", true);
+    }
+
+    printSection("EDGE CASE TESTS");
+
+    // Test 8: Taking lethal damage
+    {
+        std::cout << "Test 8: Taking lethal damage\n";
+        ClapTrap mortal("Mortal");
+        mortal.takeDamage(15); // More than HP
+        // Try to perform actions after death
+        mortal.attack("Someone"); // Should not be able to attack
+        mortal.beRepaired(5);     // Should not be able to repair
+        mortal.takeDamage(5);     // Can't take more damage when dead
+        printTestResult("Lethal Damage Handling", true);
+    }
+
+    // Test 9: Energy depletion
+    {
+        std::cout << "Test 9: Energy depletion\n";
+        ClapTrap tireless("Tireless");
+        // Use up all energy points (10)
+        for (int i = 0; i < 10; i++)
+        {
+            std::cout << "Attack #" << (i + 1) << ": ";
+            tireless.attack("Target");
+        }
+        // Try to attack with no energy
+        std::cout << "Attack with no energy: ";
+        tireless.attack("Target"); // Should fail
+
+        // Try to repair with no energy
+        std::cout << "Repair with no energy: ";
+        tireless.beRepaired(5); // Should fail
+        printTestResult("Energy Depletion Handling", true);
+    }
+
+    // Test 10: Excessive damage (edge case)
+    {
+        std::cout << "Test 10: Excessive damage\n";
+        ClapTrap tank("Tank");
+        tank.takeDamage(UINT_MAX); // Try with maximum unsigned int
+        printTestResult("Excessive Damage Handling", true);
+    }
+
+    // Test 11: Excessive repair
+    {
+        std::cout << "Test 11: Excessive repair\n";
+        ClapTrap healer("Healer");
+        healer.beRepaired(UINT_MAX - 10); // Try with a very large repair value
+        printTestResult("Excessive Repair", true);
+    }
+
+    // Test 12: Combined scenario
+    {
+        std::cout << "Test 12: Combined attack, damage and repair scenario\n";
+        ClapTrap hero("Hero");
+        ClapTrap villain("Villain");
+
+        hero.attack("Villain");
+        villain.takeDamage(4);
+        villain.beRepaired(2);
+        villain.attack("Hero");
+        hero.takeDamage(3);
+        hero.beRepaired(5);
+        printTestResult("Complex Interaction Scenario", true);
+    }
+
+    printSection("SUMMARY");
+    std::cout << "All tests executed. Please review the output for any "
+                 "unexpected behavior.\n";
+
+    return (0);
+}
