@@ -1,7 +1,7 @@
-NAME = ex00          # change to ex01 in the next folder
+NAME = ex00
 CXX  = c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98 -g3 #-fsanitize=address
-SRCS = $(wildcard *.cpp)
+SRCS = Animal.cpp Cat.cpp Dog.cpp main.cpp WrongAnimal.cpp WrongCat.cpp
 OBJS = $(SRCS:.cpp=.o)
 
 all: $(NAME)
@@ -13,4 +13,4 @@ clean: ; rm -f $(OBJS)
 fclean: clean ; rm -f $(NAME)
 re: fclean all
 .PHONY: all clean fclean re
-
+.SECONDARY: $(OBJS)
