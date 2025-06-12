@@ -7,7 +7,6 @@
 #include <iostream>
 #include <string>
 
-
 static void
 soundTest()
 {
@@ -25,7 +24,6 @@ soundTest()
     delete cat;
     delete wrong;
 }
-
 
 static void
 brainCopyTest()
