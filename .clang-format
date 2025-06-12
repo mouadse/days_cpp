@@ -1,0 +1,37 @@
+---
+BasedOnStyle: Mozilla
+Language: Cpp
+Standard: Cpp11
+
+# Indentation
+IndentWidth: 4
+TabWidth: 4
+UseTab: Never
+
+# Line length
+ColumnLimit: 80
+
+# Bracing
+BreakBeforeBraces: Allman
+Cpp11BracedListStyle: true
+
+# Function formatting
+AllowShortFunctionsOnASingleLine: None
+AllowShortIfStatementsOnASingleLine: false
+AllowShortLoopsOnASingleLine: false
+AllowAllParametersOfDeclarationOnNextLine: false
+
+# Argument/parameter packing
+BinPackArguments: false
+BinPackParameters: false
+
+# Spacing
+SpaceAfterControlStatementKeyword: true
+SpaceBeforeParens: ControlStatements
+
+# Pointer alignment
+DerivePointerAlignment: false
+PointerAlignment: Left
+
+# Alignment
+AlignConsecutiveDeclarations: true
